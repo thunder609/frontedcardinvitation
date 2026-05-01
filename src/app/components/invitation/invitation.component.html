@@ -1,0 +1,131 @@
+@if (loadingValue) {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Cargando invitación...</p>
+  </div>
+}
+
+@if (error) {
+  <div class="error-container">
+    <h2>Oops!</h2>
+    <p>{{ error }}</p>
+    <a routerLink="/" class="btn-home">Volver al inicio</a>
+  </div>
+}
+
+@if (invitados; as currentGuest) {
+  <div #pdfContent class="invitation-container">
+    <!-- Header con QR -->
+    <header class="invitation-header">
+      <div class="qr-section">
+        <qrcode
+          [qrdata]="qrDataValue"
+          [width]="200"
+          [errorCorrectionLevel]="'H'"
+        ></qrcode>
+        <p class="qr-code-text">Código: {{ currentGuest.codigoUnico }}</p>
+      </div>
+      <h1 class="invitation-title">¡Estás Invitado!</h1>
+      <p class="invitation-subtitle">Boda de July & Anthony</p>
+    </header>
+
+    <!-- Información del invitado -->
+    <section class="guest-info">
+      <h2>{{ currentGuest.nombre }} {{ currentGuest.apellido }}</h2>
+      @if (currentGuest.confirmado) {
+        <p class="confirmed-status">✓ Asistencia confirmada</p>
+      } @else {
+        <p class="pending-status"> esperamos tu confirmación</p>
+      }
+    </section>
+
+    <!-- Formulario de confirmación -->
+    @if (!currentGuest.confirmado) {
+      <section class="confirmation-section">
+        <h3>Confirmar Asistencia</h3>
+        
+        <div class="form-group">
+          <label for="cantidadPases">¿Cuántos pases necesitás? (Máximo: {{ passesMaximosValue }})</label>
+          <select 
+            id="cantidadPases"
+            [ngModel]="cantidadPasesValue"
+            (ngModelChange)="cantidadPasesValue = $event"
+          >
+            @for (num of paseOptions; track num) {
+              <option [value]="num">{{ num }} {{ num === 1 ? 'pase' : 'pases' }}</option>
+            }
+          </select>
+        </div>
+        
+        <textarea
+          [ngModel]="mensajeConfirmacionValue"
+          (ngModelChange)="mensajeConfirmacionValue = $event"
+          rows="4"
+          placeholder="Dejanos un mensaje especial (opcional)"
+        ></textarea>
+        <button (click)="confirmarAsistencia()" class="btn-confirm">
+          Confirmar mi Asistencia
+        </button>
+      </section>
+    }
+
+    <!-- Detalles del evento -->
+    <section class="event-details">
+      <div class="detail-card ceremonia">
+        <div class="icon">⛪</div>
+        <h4>Ceremonia Religiosa</h4>
+        <p class="place">Iglesia Nuestra Señora de Fátima</p>
+        <p class="time">📅 4 de Mayo, 2026</p>
+        <p class="hour">🕐 5:30 PM</p>
+      </div>
+
+      <div class="detail-card recepcion">
+        <div class="icon">🥂</div>
+        <h4>Recepción</h4>
+        <p class="place">Club Colegio de Abogados</p>
+        <p class="time">📅 4 de Mayo, 2026</p>
+        <p class="hour">🕐 8:00 PM</p>
+      </div>
+    </section>
+
+    <!-- Información adicional -->
+    <section class="additional-info">
+      <div class="info-card">
+        <h4>👔 Código de Vestimenta</h4>
+        <p>Traje Formal. Reservado el color blanco para la novia.</p>
+      </div>
+
+      <div class="info-card">
+        <h4>🎁 Regalos</h4>
+        <p>Tu presencia es nuestro mayor regalo. Si deseasarnos ayudarte a empezar esta nueva etapa, lo apreciamos mucho.</p>
+      </div>
+    </section>
+
+    <!-- Countdown con anillos dorados animados -->
+    <section class="countdown-section">
+      <h3>Contando los días</h3>
+      <div class="countdown">
+        @for (item of countdownItems; track item.label; let i = $index) {
+          <div class="circle" style="--clr: #E6BE8A;">
+            <svg>
+              <circle cx="65" cy="65" r="65"></circle>
+              <circle cx="65" cy="65" r="65" [style.stroke-dashoffset]="getDashOffset(i)"></circle>
+            </svg>
+            <div class="time-value">{{ item.value }}<br><span>{{ item.label }}</span></div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="invitation-footer">
+      <p>¡Gracias por ser parte de nuestro día especial!</p>
+      <p class="hearts">💕 July & Anthony 💕</p>
+    </footer>
+
+    <!-- Botón flotante para descargar -->
+    <button (click)="descargarInvitacion()" class="btn-download" title="Descargar invitación">
+      <i class="fas fa-download"></i> Descargar
+    </button>
+  </div>
+}

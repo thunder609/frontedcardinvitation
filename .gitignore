@@ -1,0 +1,22 @@
+# Node dependencies (se instalan con npm install)
+node_modules/
+
+# Angular build output
+dist/
+.angular/
+
+# Cache
+.angular/cache
+*.ng.cache
+
+# Entorno (nunca subir credenciales)
+.env
+.env.local
+*.env
+
+# Coverage
+coverage/
+
+# Misc
+*.log
+*.tmp

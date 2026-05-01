@@ -1,0 +1,110 @@
+<div class="mesas-container">
+  <h2>Mesas</h2>
+  <p class="subtitle">Asigna invitados a las mesas de la fiesta</p>
+
+  <!-- Crear mesa -->
+  <div class="crear-mesa-section">
+    <h3>Nueva mesa</h3>
+    <form (ngSubmit)="agregarMesa()" class="mesa-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input 
+            type="text" 
+            [(ngModel)]="nuevoMesa().nombre" 
+            name="nombre"
+            placeholder="VIP, Familia..."
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Capacidad</label>
+          <input 
+            type="number" 
+            [(ngModel)]="nuevoMesa().capacidad" 
+            name="capacidad"
+            min="1"
+            max="20"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <input 
+            type="text" 
+            [(ngModel)]="nuevoMesa().descripcion" 
+            name="descripcion"
+            placeholder="Ubicación..."
+          />
+        </div>
+      </div>
+      <button type="submit" class="btn-add">Crear</button>
+    </form>
+  </div>
+
+  <!-- Lista de mesas -->
+  <div class="mesas-grid">
+    @for (mesa of mesas(); track mesa.id) {
+      <div class="mesa-card">
+        <div class="mesa-header">
+          <h4>{{ mesa.nombre }}</h4>
+          <button (click)="toggleMesaExpandida(mesa.id!)" class="btn-toggle">
+            {{ mesaExpandida() === mesa.id ? '−' : '+' }}
+          </button>
+          <button (click)="eliminarMesa(mesa.id!)" class="btn-delete">
+            ×
+          </button>
+        </div>
+        
+        <div class="mesa-info">
+          <span class="capacidad">🪑 {{ mesa.asientosOcupados || 0 }}/{{ mesa.capacidad }}</span>
+          <span class="disponibles">{{ mesa.asientosDisponibles || mesa.capacidad }} disponibles</span>
+        </div>
+
+        <div class="progress-bar">
+          <div [style.width.%]="((mesa.asientosOcupados || 0) / mesa.capacidad) * 100" [ngClass]="getProgresoClase(mesa)"></div>
+        </div>
+
+        @if ((mesa.asientosOcupados || 0) >= mesa.capacidad) {
+          <span class="full-warning">completa</span>
+        }
+
+        @if (mesaExpandida() === mesa.id) {
+          <div class="asignar-panel">
+            @if (getInvitadosEnMesa(mesa.id!).length > 0) {
+              <div class="invitados-actual">
+                <strong>Asignados</strong>
+                @for (inv of getInvitadosEnMesa(mesa.id!); track inv.id) {
+                  <div class="invitado-item">
+                    <span>{{ inv.nombre }} {{ inv.apellido }}</span>
+                    <button (click)="desasignarInvitado(mesa.id!, inv.id!)">×</button>
+                  </div>
+                }
+              </div>
+            }
+
+            <select (change)="invitadoSeleccionado.set(+$any($event.target).value)">
+              <option value="">Agregar invitado...</option>
+              @for (inv of getInvitadosSinMesa(); track inv.id) {
+                <option [value]="inv.id">{{ inv.nombre }} {{ inv.apellido }} ({{ inv.cantidadPases || 1 }})</option>
+              }
+            </select>
+            <button 
+              (click)="asignarInvitado(mesa.id!)" 
+              class="btn-assign"
+              [disabled]="!invitadoSeleccionado()"
+            >
+              Agregar
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  @if (mesas().length === 0) {
+    <div class="empty-state">
+      Sin mesas aún. Crea la primera arriba.
+    </div>
+  }
+</div>

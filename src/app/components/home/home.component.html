@@ -1,0 +1,86 @@
+<div class="home-container">
+  <!-- Banner Section -->
+  <section class="banner">
+    <div class="banner-content">
+      <h2>¡Nos Casamos!</h2>
+      <p class="subtitulo">July & Anthony</p>
+      <p class="fecha">4 de Mayo, 2026</p>
+    </div>
+  </section>
+
+  <!-- Búsqueda de Invitación -->
+  <section class="busqueda-section">
+    <div class="busqueda-container">
+      <h3>Confirmá tu Asistencia</h3>
+      <p>Ingresa tu código de invitación para generar tu pase con QR</p>
+
+      <div class="search-box">
+        <input
+          type="text"
+          [ngModel]="codigoBusquedaValue"
+          (ngModelChange)="codigoBusquedaValue = $event"
+          (keyup.enter)="buscarInvitado()"
+          placeholder="Código de invitación (ej: INV-001)"
+          class="search-input"
+        />
+        <button (click)="buscarInvitado()" class="search-button">
+          <i class="fas fa-search"></i> Buscar
+        </button>
+      </div>
+
+      @if (getError) {
+        <div class="error-message">{{ getError }}</div>
+      }
+
+      @if (invitadoEncontrado) {
+        <div class="invitado-card">
+          <h4>¡Te encontramos, {{ invitadoEncontrado.nombre }}!</h4>
+          <p>Código: <strong>{{ invitadoEncontrado.codigoUnico }}</strong></p>
+          @if (invitadoEncontrado.confirmado) {
+            <p class="confirmado-badge">✓ Confirmado</p>
+          }
+          <button (click)="irAInvitacion(invitadoEncontrado.codigoUnico)" class="btn-generar">
+            Generar mi Invitación con QR
+          </button>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Información de la Boda -->
+  <section class="info-section">
+    <div class="info-container">
+      <div class="ceremonia-card">
+        <div class="placeholder-img">⛪</div>
+        <h3>Ceremonia Religiosa</h3>
+        <p class="lugar">Iglesia Nuestra Señora de Fátima</p>
+        <p class="hora">5:30 PM</p>
+        <p class="fecha">4 de Mayo, 2026</p>
+      </div>
+
+      <div class="recepcion-card">
+        <div class="placeholder-img">🥂</div>
+        <h3>Recepción</h3>
+        <p class="lugar">Club Colegio de Abogados</p>
+        <p class="hora">8:00 PM</p>
+        <p class="fecha">4 de Mayo, 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuenta Regresiva con anillos animados -->
+  <section class="countdown-section">
+    <h3>Contando los días</h3>
+    <div class="countdown">
+      @for (item of countdownItems; track item.label; let i = $index) {
+        <div class="circle" style="--clr: #E6BE8A;">
+          <svg>
+            <circle cx="65" cy="65" r="65"></circle>
+            <circle cx="65" cy="65" r="65" [style.stroke-dashoffset]="getDashOffset(i)"></circle>
+          </svg>
+          <div class="time-value">{{ item.value }}<br><span>{{ item.label }}</span></div>
+        </div>
+      }
+    </div>
+  </section>
+</div>

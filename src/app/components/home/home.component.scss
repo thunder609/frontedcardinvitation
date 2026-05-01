@@ -1,0 +1,212 @@
+@use '../../styles/variables' as *;
+
+.home-container {
+  padding-bottom: 3rem;
+}
+
+.banner {
+  background: linear-gradient(135deg, #f7e4f6 0%, #E6BE8A 100%);
+  padding: 4rem 2rem;
+  text-align: center;
+  color: white;
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .subtitulo {
+    font-size: 2rem;
+    font-family: 'Parisienne', cursive;
+  }
+
+  .fecha {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+  }
+}
+
+.busqueda-section {
+  padding: 3rem 2rem;
+  background: #fff;
+}
+
+.busqueda-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+
+  h3 {
+    font-size: 2rem;
+    color: #E6BE8A;
+    margin-bottom: 1rem;
+  }
+}
+
+.search-box {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid #E6BE8A;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.search-button {
+  padding: 1rem 2rem;
+  background: #E6BE8A;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #d4a874;
+  }
+}
+
+.error-message {
+  color: #dc3545;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #ffe6e6;
+  border-radius: 8px;
+}
+
+.invitado-card {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  h4 {
+    color: #E6BE8A;
+    margin-bottom: 1rem;
+  }
+}
+
+.confirmado-badge {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.btn-generar {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #f7e4f6 0%, #E6BE8A 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.info-section {
+  padding: 3rem 2rem;
+  background: #f9f9f9;
+}
+
+.info-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.ceremonia-card,
+.recepcion-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder-img {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.countdown-section {
+  padding: 4rem 2rem 5rem;
+  text-align: center;
+  background: #fff;
+  overflow: visible;
+  margin-bottom: 2rem;
+
+  h3 {
+    font-size: 2rem;
+    color: #E6BE8A;
+    margin-bottom: 2rem;
+  }
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.circle {
+  position: relative;
+  width: 130px;
+  height: 130px;
+    border-radius:50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+        border-radius:50%;
+    transform: rotate(-90deg);
+  }
+
+  circle {
+        border-radius:50%;
+
+    fill: none;
+    stroke-width: 8;
+
+    &:first-child {
+      stroke: #f0f0f0;
+    }
+
+    &:last-child {
+      stroke: #E6BE8A;
+      stroke-dasharray: 408;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s linear;
+    }
+  }
+}
+
+.time-value {
+  position: absolute;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #E6BE8A;
+
+  span {
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 2px;
+  }
+}
