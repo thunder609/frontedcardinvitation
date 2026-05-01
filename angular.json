@@ -23,7 +23,7 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets", "src/images"],
+            "assets": ["src/favicon.ico", "src/assets", "src/images", "src/_redirects"],
             "styles": ["src/styles.scss"],
             "scripts": [],
             "externalDependencies": ["jspdf", "html2canvas"]
