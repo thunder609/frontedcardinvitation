@@ -41,9 +41,14 @@
 }
 
 .invitation-container {
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
+
+  @media (min-width: 768px) {
+    max-width: 800px;
+    padding: 2rem;
+  }
 }
 
 .invitation-header {
@@ -57,16 +62,31 @@
 
 .qr-section {
   background: white;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 12px;
   display: inline-block;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  max-width: 100%;
+
+  qrcode {
+    max-width: 100%;
+    height: auto;
+  }
 
   .qr-code-text {
     color: #333;
     font-family: monospace;
     margin-top: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+  }
+
+  @media (min-width: 768px) {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    .qr-code-text {
+      font-size: 0.9rem;
+    }
   }
 }
 
@@ -225,29 +245,35 @@
 .countdown {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
-   border-radius:50%;
 }
 
 .circle {
-       
   position: relative;
-  width: 130px;
-  height: 130px;
-   border-radius:50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
 
   svg {
-   border-radius:50%;
-
     position: absolute;
+    width: 100px;
+    height: 100px;
+    transform: rotate(-90deg);
+  }
+
+  @media (min-width: 768px) {
     width: 130px;
     height: 130px;
-    transform: rotate(-90deg);
+
+    svg {
+      width: 130px;
+      height: 130px;
+    }
   }
 
   circle {
