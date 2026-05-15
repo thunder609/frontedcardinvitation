@@ -36,15 +36,36 @@
 .crear-mesa-section {
   background: white;
   padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   margin-bottom: 2rem;
+  border: 2px solid #E6BE8A;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #E6BE8A, #f7e4f6, #E6BE8A);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
 
   h3 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 500;
-    color: #444;
+    color: #E6BE8A;
     margin-bottom: 1rem;
+    font-family: 'Parisienne', cursive;
   }
 
   .mesa-form {
@@ -120,13 +141,37 @@
 
 .mesa-card {
   background: white;
-  border: 1px solid #eee;
-  border-radius: 8px;
+  border: 2px solid #E6BE8A;
+  border-radius: 12px;
   padding: 1rem;
-  transition: box-shadow 0.2s;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 8px 25px rgba(230, 190, 138, 0.25);
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(230, 190, 138, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  &:hover::before {
+    opacity: 1;
   }
 
   .mesa-header {
